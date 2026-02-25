@@ -1,0 +1,69 @@
+services:
+  app:
+    build: .
+    image: repota-skripsi
+    container_name: repota-skripsi
+    ports:
+      - "8004:8000"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+    working_dir: /var/www/repota-skripsi
+    volumes:
+      - .:/var/www/repota-skripsi
+      - ./storage/php.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+       - repota-skripsi
+
+  webserver:
+    image: nginx:latest
+    container_name: nginxlaraveldocker_skripsi
+    restart: unless-stopped
+    tty: true
+    ports:
+     - "2025:80"
+    volumes:
+      - .:/var/www/repota-skripsi
+      - ./nginx/app.conf:/etc/nginx/conf.d/app.conf
+    networks:
+      - repota-skripsi
+
+  db:
+    image: mysql:latest
+    container_name: dblaraveldocker_skripsi
+    restart: always
+    tty: true
+    ports:
+      - "3308:3306"
+    volumes:
+      - lbdata:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - repota-skripsi
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pmalaraveldocker_skripsi
+    links:
+      - db
+    restart: always
+    ports:
+      - 7002:80 
+    networks:
+      - repota-skripsi
+
+networks:
+  repota-skripsi:
+    driver: bridge
+
+volumes:
+  lbdata:
+    driver: local
