@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:8.2-fpm
 
 RUN mkdir -p /var/www/repota-skripsi
 
@@ -34,8 +34,6 @@ COPY . .
 COPY --chown=www:www . .
 
 USER www
+EXPOSE 9000
 
-RUN a2enmod rewrite
-COPY . /var/www/html
-EXPOSE 80
-CMD ["apache2-foreground"]
+CMD ["php-fpm"]
