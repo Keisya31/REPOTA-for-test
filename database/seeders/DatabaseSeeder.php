@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $mhsAsli1 = Mahasiswa::create([
             'nim' => '24060121140143',
-            'mhs_nama' => 'Sana Saffana',
+            'mhs_nama' => 'Saffa Mutiara',
             'semester'=>'9',
             'tugas_akhir' => true,
         ]);
@@ -113,7 +113,7 @@ class DatabaseSeeder extends Seeder
         
         $mhsAsli2 = Mahasiswa::create([
             'nim' => '24060121140139',
-            'mhs_nama' => 'Thirafi Syahir Saputra',
+            'mhs_nama' => 'Saputra Hasan',
             'semester'=>'9',
             'tugas_akhir' => true,
         ]);
