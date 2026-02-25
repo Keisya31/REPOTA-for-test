@@ -9,7 +9,7 @@ RUN docker-php-ext-install pdo_mysql mbstring bcmath gd zip intl
 
 COPY composer.json composer.lock ./
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 COPY . .
 
